@@ -1,20 +1,21 @@
 CC = clang
-CFLAGS = -Iinclude -Wall -g
-SRC = src/heap.c
-OBJ = $(SRC:.c=.o)
+CFLAGS = -Iinclude -Iglthread -Wall -g -std=c11
+SRC = src/mm.c glthread/glthread.c src/testapp.c
+OBJDIR = build
+OBJS = $(patsubst %.c, $(OBJDIR)/%.o, $(SRC))
+.PHONY: all clean run
 
-all: build/example_run
+all: build/test.exe
 
-build/example_run: $(OBJ) examples/example_run.c
+$(OBJDIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+build/test.exe: $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^
 
-test: $(OBJ) tests/test_calloc_free.c
-	$(CC) $(CFLAGS) -o build/test_heap $^
-	./build/test_heap
+run: build/test.exe
+	./build/test.exe
 
 clean:
-	rm -rf build/*.o build/example_run build/test_heap
-
-run-example: src/heap.o
-	$(CC) $(CFLAGS) -o build/example_run src/heap.o examples/example_run.c
-	./build/example_run
+	rm -rf build
