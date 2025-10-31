@@ -15,8 +15,11 @@ This project re-implements and enhances core memory allocation functionalities s
 ## Compilation
 
 gcc -Iinclude -Iglthread -g -c src/testapp.c -o build/testapp.o
+
 gcc -Iinclude -Iglthread -g -c src/mm.c -o build/mm.o
+
 gcc -Iinclude -Iglthread -g -c glthread/glthread.c -o build/glthread.o
+
 gcc -Iinclude -Iglthread -g build/testapp.o build/mm.o build/glthread.o -o build/test.exe
 
 Then run: ./build/test.exe
