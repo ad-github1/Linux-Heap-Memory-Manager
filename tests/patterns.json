@@ -1,0 +1,14 @@
+{
+    "patterns": [
+      {"name": "small-churn", "ops": [
+        {"op":"alloc","size":64,"count":1000},
+        {"op":"free","pattern":"every_other"}
+      ]},
+      {"name": "growing-sizes", "ops": [
+        {"op":"alloc","size":128,"count":100},
+        {"op":"alloc","size":1024,"count":50},
+        {"op":"free","pattern":"random"}
+      ]}
+    ]
+  }
+  
